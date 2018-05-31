@@ -37,7 +37,7 @@ class GithubSpider(scrapy.Spider):
                                     headers={'User-Agent': random.choice(USER_AGENTS)})
             root = etree.HTML(response.text)
             for repo in root.xpath('//li[@class="col-12 d-block width-full py-4 border-bottom public source"]'):
-                name = 'https://github.com/' + repo.xpath('./div/h3/a/@href')[0]
+                name = repo.xpath('./div/h3/a/@href')[0]
                 stars = repo.xpath('./div[@class="f6 text-gray mt-2"]/a[@href="' + name + '/stargazers"]/text()')
                 if stars:
                     star = stars[-1].split()[0]
@@ -57,7 +57,7 @@ class GithubSpider(scrapy.Spider):
                     language = language[0].split()[0]
                 else:
                     language = ''
-                repos.append((name, star, fork, language))
+                repos.append(('https://github.com' + name, star, fork, language))
 
             try:
                 root.xpath('//a[text()="Next"]/@href')[0]

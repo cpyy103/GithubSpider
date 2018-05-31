@@ -32,7 +32,7 @@ class GithubPipeline(object):
         self.conn1.query('drop table if exists repo')
         self.conn1.commit()
         sql_create_table_user = 'create table user (name char(70),repositories int(10),stars int(10),followers int(10),followings int(10))'
-        sql_create_table_repo = 'create table repo (repo char(70),fork int(10),star int(10),language char(20))'
+        sql_create_table_repo = 'create table repo (repo char(80),fork int(10),star int(10),language char(20))'
         self.conn1.query(sql_create_table_user)
         self.conn1.commit()
         self.conn1.query(sql_create_table_repo)
